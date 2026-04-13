@@ -184,20 +184,6 @@ col2.metric("Offensive Penalty TD%",  f"{off_pen_overall:.1f}%",    help="TD% wh
 col3.metric("Defensive Penalty TD%",  f"{def_pen_overall:.1f}%",    help="TD% when opponent got penalized")
 col4.metric("Wasted Opportunity %",   f"{wasted_overall:.1f}%",     help="% of opponent penalties Bears failed to score on")
 
-# ── Penalty Metrics Chart ──────────────────────
-st.markdown("#### 📊 Penalty Impact on Red Zone Scoring")
-fig5, ax5 = plt.subplots(figsize=(8, 5))
-metrics     = ['Clean TD%', 'Offensive\nPenalty TD%', 'Defensive\nPenalty TD%', 'Wasted\nOpportunity %']
-values      = [clean_td_overall, off_pen_overall, def_pen_overall, wasted_overall]
-bar_colors  = ['#0B2265', '#C83803', '#228B22', '#FF8C00']
-bars = ax5.bar(metrics, values, color=bar_colors)
-ax5.set_title('Bears Red Zone Performance by Penalty Situation', fontsize=14)
-ax5.set_ylabel('Percentage %')
-for bar, val in zip(bars, values):
-    ax5.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5,
-             f'{val:.1f}%', ha='center', fontsize=11, fontweight='bold')
-plt.tight_layout()
-st.pyplot(fig5)
 
 # ── Insights ──────────────────────────────────
 col1, col2 = st.columns(2)
@@ -213,22 +199,12 @@ with col2:
         st.success(f"✅ Bears recover well from own penalties in red zone")
 
 # ── Red Zone PlayType TD% ──────────────────────
-st.markdown("---")
 st.markdown("### 🏈 Red Zone TD% by Play Type (Overall)")
 rz_playtype = rz_plays_all.groupby('PlayType')['Touchdown'].mean() * 100
-rz_playtype = rz_playtype.sort_values(ascending=False).reset_index()
 
-fig6, ax6 = plt.subplots(figsize=(6, 4))
-ax6.bar(rz_playtype['PlayType'], rz_playtype['Touchdown'],
-        color=['#0B2265', '#C83803'])
-ax6.set_title('Red Zone TD Rate by Play Type', fontsize=14)
-ax6.set_xlabel('Play Type')
-ax6.set_ylabel('TD Rate %')
-for i, (_, row) in enumerate(rz_playtype.iterrows()):
-    ax6.text(i, row['Touchdown'] + 0.3, f"{row['Touchdown']:.1f}%",
-             ha='center', fontsize=12, fontweight='bold')
-plt.tight_layout()
-st.pyplot(fig6)
+col1, col2 = st.columns(2)
+col1.metric("Pass TD% in Red Zone", f"{rz_playtype.get('Pass', 0):.1f}%")
+col2.metric("Run TD% in Red Zone",  f"{rz_playtype.get('Run', 0):.1f}%")
 
 # ── Strategic Recommendation ──────────────────
 st.markdown("---")
