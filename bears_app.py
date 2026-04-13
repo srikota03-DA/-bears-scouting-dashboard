@@ -176,7 +176,14 @@ with col4:
 # ── Module 7 — Penalty Adjusted Red Zone ──────
 st.markdown("---")
 st.markdown("### 🚨 Penalty Adjusted Red Zone Analysis (Overall 2009-2024)")
-st.info("ℹ️ These metrics show Bears overall performance across all opponents — sample size per team is too small to show individually.")
+st.info(f"""
+ℹ️ **Sample Size Note:**
+- Total red zone plays (Pass/Run): **{len(rz_plays_all):,}**
+- Total red zone penalties: **130** across 16 seasons (2009-2024)
+- Offensive penalties: **56** | Defensive penalties: **74**
+- Average per opponent: only **2-3 penalty plays** — too small to show per team
+- Metrics shown as **overall averages** across all opponents for reliability
+""")
 
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Clean TD%",              f"{clean_td_overall:.1f}%",   help="TD% with no penalty")
