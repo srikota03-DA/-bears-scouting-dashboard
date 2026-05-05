@@ -62,9 +62,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Sidebar ───────────────────────────────────
-st.sidebar.image(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Chicago_Bears_logo.svg/200px-Chicago_Bears_logo.svg.png",
-    width=150)
+#st.sidebar.image(
+    #"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Chicago_Bears_logo.svg/200px-Chicago_Bears_logo.svg.png",
+    #width=150)
 st.sidebar.title("🎯 Select Opponent")
 
 teams = sorted(bears['DefensiveTeam'].unique())
